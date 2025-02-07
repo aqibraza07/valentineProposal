@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        :root {
+            --primary-red: #ff1744;
+            --primary-pink: #ff4081;
+            --primary-green: #00e676;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe5ea 100%);
+            font-family: 'Comic Sans MS', cursive;
+            touch-action: manipulation;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: var(--primary-red);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1em;
+            animation: float 3s ease-in-out infinite;
+            z-index: 1000;
+            margin-top: -1vh;
+        }
+
+        .image-container {
+            width: 80vw;
+            max-width: 400px;
+            height: 50vh;
+            margin: 2em auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgb(183, 92, 170);
+            position: relative;
+            background: #fff;
+            z-index: -1;
+        }
+
+        .valentine-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .valentine-image.active {
+            opacity: 1;
+        }
+
+        .button-container {
+            position: relative;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 2em 0;
+            flex-wrap: wrap;
+            margin-top: 10vh;
+            
+        }
+
+        .valentine-button {
+            padding: clamp(15px, 4vw, 25px) clamp(30px, 6vw, 50px);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+            will-change: transform;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-width: 120px;
+        }
+
+        .yes-button {
+            background: var(--primary-green);
+            color: white;
+            transform: scale(1);
+        }
+
+        .no-button {
+            background: var(--primary-red);
+            color: white;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: static;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            font-size: clamp(20px, 4vw, 24px);
+            color: var(--primary-pink);
+            animation: float 3s ease-out infinite;
+            z-index: 1000;
+            margin-top: -50vh;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .valentine-button {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .image-container {
+                height: 40vh;
+                width: 90vw;
+                margin-top: 20%;
+
+            }
+        }
+        .yes-button{
+            z-index: 1000;
+        }
+    
+    /* Heart container */
+    .heart {
+        position: absolute;
+        width: 50px;
+        height: 45px;
+    }
+    /* Create the heart shape using pseudo-elements */
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 25px;
+        height: 40px;
+        background: red;
+        border-radius: 25px 25px 0 0;
+      /* Add a glow effect using box-shadow */
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.5);
+    }
+    /* Right bump of the heart */
+    .heart::before {
+        left: 25px;
+        transform: rotate(-45deg);
+        transform-origin: 0 100%;
+    }
+    /* Left bump of the heart */
+    .heart::after {
+        left: 0;
+        transform: rotate(45deg);
+        transform-origin: 100% 100%;
+    }
+    /* Falling animation keyframes */
+    @keyframes fall {
+        0% {
+        transform: translateY(-100px);
+        opacity: 1;
+        }
+        100% {
+        transform: translateY(75vh);
+        opacity: 0;
+        }
+    }
+    /* Apply the falling animation */
+    .falling {
+        animation: fall linear forwards;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="container">
+        <h1>Will You Be My Valentine? 💘</h1>
+        <div class="image-container">
+            <img src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif" class="valentine-image active" alt="Valentine">
+            <img src="https://media.tenor.com/P285-2vH5FYAAAAi/alone-lonely.gif" class="valentine-image" alt="Heart">
+            <img src="https://media.tenor.com/dltr8Wx24g8AAAAj/mochi.gif" class="valentine-image" alt="Flowers">
+            <img src="https://media.tenor.com/tzvzrz4famQAAAAj/couple-forgive-me.gif" class="valentine-image" alt="Couple">
+            <img src="https://media.tenor.com/3bDvSVpiwjoAAAAj/peach-goma-phone.gif" class="valentine-image" alt="Heart">
+            <img src="https://media.tenor.com/Lj_evSZDLpIAAAAi/iklog-cute.gif" class="valentine-image" alt="Flowers">
+            <img src="https://media.tenor.com/cyjenChBe1cAAAAi/peach-goma.gif" class="valentine-image" alt="Couple">
+        </div>
+        <div>
+            <p id="no-button-content" style="font-size: larger;">
+                Will You Be My Valentine?
+            </p>
+        </div>
+        <div class="button-container">
+            <button class="valentine-button yes-button " id="yes-button">YES! 😍</button>
+            <button class="valentine-button no-button">NO 😢</button>
+        </div>
+    </div>
+    
+
+    <script>
+
+
+const messages = [
+    "Are you sure? 😟",
+    "Really sure? 😥",
+    "Think again! 🤔",
+    "Last chance! 😣",
+    "Surely not? 😭",
+    "You'll regret this! 😱",
+    "Give it another thought! 💭",
+    "I'm gonna cry... 😭",
+    "My heart is breaking 💔"
+];
+
+const images = document.querySelectorAll('.valentine-image');
+const noButton = document.querySelector('.no-button');
+const noButtonContent = document.getElementById('no-button-content');  // Note: no '#' here.
+const yesButton = document.querySelector('.yes-button');
+const buttonContainer = document.querySelector('.button-container');
+let messageIndex = 0;
+let yesScale = 1;
+let currentImageIndex = 0;
+let moveCount = 0;
+
+noButton.addEventListener('click', handleNoClick);
+yesButton.addEventListener('click', handleYesClick);
+
+function handleNoClick() {
+    // Change message in the no-button-content element with fade animation
+    noButtonContent.style.opacity = '0';
+    setTimeout(() => {
+        noButtonContent.textContent = messages[messageIndex];
+        noButtonContent.style.opacity = '1';
+        messageIndex = (messageIndex + 1) % messages.length;
+    }, 300);
+
+    // Change image
+    images[currentImageIndex].classList.remove('active');
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    images[currentImageIndex].classList.add('active');
+
+    // Increase yes button size
+    yesScale *= 1.15;
+    yesButton.style.transform = `scale(${yesScale})`;
+
+    // Horizontal movement with increasing range for the no button
+    const containerWidth = buttonContainer.offsetWidth;
+    const buttonWidth = noButton.offsetWidth;
+    const maxMove = Math.min(containerWidth - buttonWidth, 300 + (moveCount * 50));
+    const moveAmount = Math.random() * maxMove * (Math.random() > 0.5 ? 1 : -1);
+    
+    noButton.style.transform = `translateX(${moveAmount}px)`;
+    moveCount++;
+
+    // Create floating hearts
+    createHearts(3);
+}
+
+function handleYesClick() {
+    // Celebration effect
+    createHearts(30);
+    document.body.style.background = 'linear-gradient(135deg, #ff85a2 0%, #ff6b6b 100%)';
+    
+    // Show success message
+    document.body.innerHTML = `
+        <div class="container">
+          <div class="image-container">
+            <h1 style="animation: float 1s infinite; color: #fff;">YAY! 💖🎉</h1>
+            <p style="color: #fff; font-size: 1.5em;">You've made me the happiest! 😘</p>
+            <img src="https://c.tenor.com/A4Lvk69JMJkAAAAd/tenor.gif" class="valentine-image active" alt="Celebration" />
+          </div>
+        </div>
+    `;
+}
+
+function createHearts(count) {
+    for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 1 + 's';
+        heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+        document.body.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+// Preload images
+window.addEventListener('load', () => {
+    images.forEach(img => {
+        new Image().src = img.src;
+    });
+});
+
+function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart', 'falling');
+
+      // Random horizontal starting position (ensuring the heart stays within the viewport)
+      heart.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+
+      // Randomize the animation duration between 3 and 6 seconds for varied effect
+      const duration = Math.random() * 3 + 3;
+      heart.style.animationDuration = duration + 's';
+
+      // Append the heart to the document body
+      document.body.appendChild(heart);
+
+      // Remove the heart element after its animation completes
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // Generate a new heart every 300 milliseconds
+    setInterval(createHeart, 300);
+
+    </script>
+</body>
+</html>
